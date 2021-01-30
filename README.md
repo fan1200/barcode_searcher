@@ -20,9 +20,30 @@ If you miss a provider and would like to contribute you are more than welcome! :
 - illuminate (config, support) for easy Laravel integration
 - guzzle and thus curl
 
-# Installation
-When using Laravel 5.5 or higher the ServiceProvider should automatically be discovered. If not you have to add `BarcodeSearcher/ServiceProvider`
-to your `app.php`.
+# How to install
+## Composer 
+Add this to your projects composer.json file:
+
+```json
+{   
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "git@github.com:fan1200/barcode_seacher.git"
+        }
+    ]
+}
+```
+
+Then run `composer require fan1200/barcode_searcher` 
+
+## Include service provider (not needed for Laravel >= 5.5)
+In config/app.php
+```php
+'providers' => [
+    \BarcodeSearcher\ServiceProvider::class,
+],
+```
 
 # Usage
 Implement `BarcodeSearcher\SearchManager` into your code and use the `search` function to find results.
@@ -30,7 +51,7 @@ When the search was successful you will receive a `BarcodeSearcher\Models\Produc
 
 # Configuration
 All available providers can be found in the `config` file. The array also defines the sort order of providers. If you
-wish to change the order or add/disable providers you could publish the config to your own project using: [PLACEHOLDER] 
+wish to change the order or add/disable providers you could publish the config to your own project using: `php artisan vendor:publish --tag barcode_searcher-config` 
 
 ## UPC Database.org
 In order to make use of upcdatabase.org you'll need to create an account and add the API-key to the config.

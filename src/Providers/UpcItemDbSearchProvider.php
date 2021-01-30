@@ -62,7 +62,7 @@ class UpcItemDbSearchProvider implements SearchProvider
 
         } catch (ClientException $clientException) {
 
-            if ($clientException->getCode() !== 404) {
+            if (!in_array($clientException->getCode(), [404, 429])) {
                 throw new SearchProviderException($clientException->getMessage());
             }
 

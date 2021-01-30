@@ -21,6 +21,7 @@ use BarcodeSearcher\Factories\JumboProductModelFactory;
 use BarcodeSearcher\Factories\OpenFoodFactProductModelFactory;
 use BarcodeSearcher\Factories\UpcDatabaseProductModelFactory;
 use BarcodeSearcher\Factories\UpcItemDbProductModelFactory;
+use BarcodeSearcher\Foundation\Contracts\AppAwareInterface;
 use BarcodeSearcher\Providers\AhSearchProvider;
 use BarcodeSearcher\Providers\CodeCheckerSearchProvider;
 use BarcodeSearcher\Providers\CoopSearchProvider;
@@ -38,14 +39,19 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
     public function boot()
     {
         $this->publishes([
-            __DIR__.'/../config/courier.php' => $this->app->configPath('barcode-searcher.php'),
-        ], 'barcode_searcher');
+            __DIR__.'/config.php' => $this->app->configPath('barcode-searcher.php'),
+        ], 'barcode_searcher-config');
     }
 
     public function register()
     {
         parent::register();
-
+        
+        $this->app->resolving(AppAwareInterface::class, function (AppAwareInterface $class) {
+            $class->setApp($this->app);
+            return $class;
+        });
+        
         $this->mergeConfigFrom(
             __DIR__ . '/config.php', 'barcode_searcher'
         );
