@@ -1,0 +1,37 @@
+{
+  "name": "fan1200/barcode_searcher",
+  "type": "library",
+  "description": "Barcode Searcher",
+  "keywords": [
+    "Barcode",
+    "EAN",
+    "API"
+  ],
+  "authors": [
+    {
+      "name": "Jeroen"
+    }
+  ],
+  "license": "Apache-2.0",
+  "require": {
+    "php": ">=7.4",
+    "illuminate/config": "^6|^7|^8",
+    "illuminate/support": "^6|^7|^8",
+    "guzzlehttp/guzzle": "^6.5.5|^7.0.1"
+  },
+  "require-dev": {
+    "roave/security-advisories": "dev-master"
+  },
+  "autoload": {
+    "psr-4": {
+      "BarcodeSearcher\\": "src/"
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "BarcodeSearcher\\ServiceProvider"
+      ]
+    }
+  }
+}
